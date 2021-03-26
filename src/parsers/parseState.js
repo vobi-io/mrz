@@ -5,8 +5,13 @@ const STATES = require('../generated/states');
 const cleanText = require('./cleanText');
 
 module.exports = function parseState(source) {
-  source = cleanText(source);
-  let state = STATES[source];
+  let updatedSource = source
+  if (updatedSource && updatedSource.includes('GE0')) {
+    updatedSource = updatedSource.replace('GE0', 'GEO')
+  }
+
+  source = cleanText(updatedSource);
+  let state = STATES[updatedSource];
   if (!state) {
     throw new Error(`invalid state code: ${source}`);
   }
